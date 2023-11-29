@@ -17,7 +17,6 @@ async function fetchCurrencies() {
 }
 
 // API Frankfurter
-// ...
 
 async function convertCurrency() {
     const amount = document.getElementById('amount').value;
@@ -64,6 +63,6 @@ async function convertCurrency() {
     }
 }
 
-// ...
+
 
 window.onload = fetchCurrencies;

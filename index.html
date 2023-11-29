@@ -10,23 +10,24 @@
 
     <h1>Trade</h1>
 
-<form id="currencyConverter">
-    <label for="amount">Amout</label>
-    <input type="number" id="amount" min="0.01" value="0" step="0.01" required>
+    <form id="currencyConverter">
+        <label for="amount">Amount</label>
+        <input type="number" id="amount" min="0.01" value="0" step="0.01" required>
 
+        <label for="fromCurrency">From</label>
+        <select id="fromCurrency" required></select>
 
-    <label for="fromCurrency">From</label>
-    <select id="fromCurrency" required></select>
+        <label for="toCurrency">To</label>
+        <select id="toCurrency" required>
+            <option value="To all currency"> All currency</option>
+        </select>
 
-    <label for="toCurrency">To</label>
-    <select id="toCurrency" required></select>
+        <button type="button" onclick="convertCurrency()">Convert</button>
 
-    <button type="button" onclick="convertCurrency()">Convert</button>
+        <div id="result"></div>
 
-    <div id="result"></div>
-
-    <script src="script.js"></script>
-</form>
+        <script src="script.js"></script>
+    </form>
 
 </body>
 </html>

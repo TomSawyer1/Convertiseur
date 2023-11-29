@@ -17,23 +17,53 @@ async function fetchCurrencies() {
 }
 
 // API Frankfurter
+// ...
+
 async function convertCurrency() {
     const amount = document.getElementById('amount').value;
     const fromCurrency = document.getElementById('fromCurrency').value;
     const toCurrency = document.getElementById('toCurrency').value;
 
-    // Vérifier si les devises sont différentes
     if (fromCurrency === toCurrency) {
         alert('Please select different currencies.');
         return;
     }
 
-    const response = await fetch(`https://api.frankfurter.app/latest?amount=${amount}&from=${fromCurrency}&to=${toCurrency}`);
+    const response = await fetch(`https://api.frankfurter.app/latest?amount=${amount}&from=${fromCurrency}`);
     const result = await response.json();
+
+    const rates = result.rates;
 
     // Afficher le résultat
     const resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = `${amount} ${fromCurrency} equals ${result.rates[toCurrency]} ${toCurrency}`;
+    resultDiv.innerHTML = '';
+
+    if (toCurrency === 'To all currency') {
+        const table = document.createElement('table');
+        table.innerHTML = `
+            <tr>
+                <th>Currency</th>
+                <th>Converted Amount</th>
+            </tr>
+        `;
+
+        Object.keys(rates).forEach(currency => {
+            const convertedAmount = (amount * rates[currency]).toFixed(2);
+            const row = table.insertRow();
+            const cell1 = row.insertCell(0);
+            const cell2 = row.insertCell(1);
+            cell1.textContent = currency;
+            cell2.textContent = convertedAmount;
+        });
+
+        // Ajouter le tableau au résultat
+        resultDiv.appendChild(table);
+    } else {
+        // Afficher la conversion normale
+        resultDiv.textContent = `${amount} ${fromCurrency} equals ${result.rates[toCurrency]} ${toCurrency}`;
+    }
 }
+
+// ...
 
 window.onload = fetchCurrencies;
